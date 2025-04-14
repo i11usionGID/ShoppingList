@@ -21,9 +21,6 @@ class MainActivity : AppCompatActivity() {
         viewModel.shopList.observe(this) {
             Log.d("MainActivityTest", it.toString())
         }
-        viewModel.getShopList()
         viewModel.deleteShopItem(2)
-        viewModel.editShopItem(ShopItem("Name 52", 10, true, 4))
-        viewModel.getShopList()
     }
 }
