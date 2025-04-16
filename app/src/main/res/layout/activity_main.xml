@@ -7,20 +7,8 @@
     android:layout_height="match_parent"
     tools:context=".presintation.MainActivity">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:id="@+id/ll_shop_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"/>
-    </ScrollView>
-
     <androidx.recyclerview.widget.RecyclerView
-        android:visibility="gone"
-        android:id="@+id/recyclerViewShopItems"
+        android:id="@+id/rv_shop_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -32,7 +20,7 @@
         tools:itemCount="9"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButtonAddShopItem"
+        android:id="@+id/button_add_shop_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
