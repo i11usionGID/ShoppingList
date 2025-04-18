@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppinglist.R
 import com.example.shoppinglist.domain.ShopItem
@@ -33,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         val rvShopList = findViewById<RecyclerView>(R.id.rv_shop_list)
         with(rvShopList) {
             rvAdapter = ShopListAdapter()
-            this.adapter = rvAdapter
+            adapter = rvAdapter
             recycledViewPool.setMaxRecycledViews(
                 ShopListAdapter.VIEW_TYPE_ENABLED,
                 ShopListAdapter.MAX_POOL_SIZE
@@ -42,6 +43,43 @@ class MainActivity : AppCompatActivity() {
                 ShopListAdapter.VIEW_TYPE_DISABLED,
                 ShopListAdapter.MAX_POOL_SIZE
             )
+        }
+        setUpLongClickListener()
+        setUpClickListener()
+        setUpSwipeListener(rvShopList)
+    }
+
+    private fun setUpSwipeListener(rvShopList: RecyclerView) {
+        val callback = object : ItemTouchHelper.SimpleCallback(
+            0,
+            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+        ) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val item = rvAdapter.shopList[viewHolder.adapterPosition]
+                viewModel.deleteShopItem(item.id)
+            }
+        }
+        val itemTouchHelper = ItemTouchHelper(callback)
+        itemTouchHelper.attachToRecyclerView(rvShopList)
+    }
+
+    private fun setUpClickListener() {
+        rvAdapter.onShopItemClickListener = {
+            Log.d("MainActivity", "${it.id} - ${it.name} - ${it.count} - ${it.enabled}")
+        }
+    }
+
+    private fun setUpLongClickListener() {
+        rvAdapter.onShopItemLongClickListener = {
+            viewModel.changeEnableState(it)
         }
     }
 }

@@ -10,6 +10,9 @@ import com.example.shoppinglist.domain.ShopItem
 
 class ShopListAdapter: RecyclerView.Adapter<ShopListAdapter.ShopListViewHolder>() {
 
+    var onShopItemLongClickListener: ((ShopItem) -> Unit)? = null
+    var onShopItemClickListener: ((ShopItem) -> Unit)? = null
+
     var shopList = listOf<ShopItem>()
         set(value) {
             field = value
@@ -28,11 +31,15 @@ class ShopListAdapter: RecyclerView.Adapter<ShopListAdapter.ShopListViewHolder>(
 
     override fun onBindViewHolder(holder: ShopListViewHolder, position: Int) {
         val view = shopList[position]
-        holder.tvName.text = view.name
-        holder.tvCount.text = view.count.toString()
         holder.itemView.setOnLongClickListener {
+            onShopItemLongClickListener?.invoke(view)
             true
         }
+        holder.itemView.setOnClickListener {
+            onShopItemClickListener?.invoke(view)
+        }
+        holder.tvName.text = view.name
+        holder.tvCount.text = view.count.toString()
     }
 
     override fun getItemViewType(position: Int): Int {
