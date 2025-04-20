@@ -22,8 +22,7 @@
         <EditText
             android:id="@+id/et_name"
             android:layout_width="match_parent"
-            android:layout_height="61dp"
-            android:background="#E9E3E3"
+            android:layout_height="wrap_content"
             android:hint="@string/name"
             android:inputType="textCapWords" />
 
@@ -45,7 +44,6 @@
             android:id="@+id/et_count"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#E9E3E3"
             android:hint="@string/count"
             android:inputType="number" />
 
