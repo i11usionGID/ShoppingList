@@ -31,23 +31,21 @@ class ShopListAdapter : ListAdapter<ShopItem, ShopItemViewHolder>(ShopItemDiffCa
     }
 
     override fun onBindViewHolder(holder: ShopItemViewHolder, position: Int) {
-        val view = getItem(position)
+        val shopItem = getItem(position)
         val binding = holder.binding
         binding.root.setOnLongClickListener {
-            onShopItemLongClickListener?.invoke(view)
+            onShopItemLongClickListener?.invoke(shopItem)
             true
         }
         binding.root.setOnClickListener {
-            onShopItemClickListener?.invoke(view)
+            onShopItemClickListener?.invoke(shopItem)
         }
         when (binding) {
             is ShopItemDisabledBinding -> {
-                binding.tvName.text = view.name
-                binding.tvCount.text = view.count.toString()
+                binding.shopItem = shopItem
             }
             is ShopItemEnabledBinding -> {
-                binding.tvName.text = view.name
-                binding.tvCount.text = view.count.toString()
+                binding.shopItem = shopItem
             }
         }
     }
