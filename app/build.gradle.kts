@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.kapt)
 }
 
 android {
@@ -41,16 +42,16 @@ android {
 }
 
 dependencies {
-    implementation(libs.room.ktx)
-    implementation(libs.androidx.core.ktx)
+    ksp(libs.room.compiler)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.viewModel)
+    implementation(libs.room)
+    implementation(libs.room.ktx)
+    implementation(libs.androidx.core.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation(libs.viewModel)
-    implementation(libs.room)
-    ksp(libs.room.compiler)
 }
